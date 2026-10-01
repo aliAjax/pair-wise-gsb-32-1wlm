@@ -16,6 +16,11 @@ export const useSpotStore = defineStore('spot', {
     toggleFavorite(id: string) {
       this.favorites = this.favorites.includes(id) ? this.favorites.filter((item) => item !== id) : [...this.favorites, id];
     },
+    /** 合并结果回写（确认后落盘） */
+    replaceAll(spots: Spot[]) {
+      this.spots = spots;
+      spotApi.save(this.spots);
+    },
   },
 });
 

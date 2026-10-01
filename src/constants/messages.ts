@@ -6,5 +6,12 @@ export const messages = {
   emptySpots: '没有符合条件的景点。',
   budgetExceeded: '预算可能超支，请调整景点或交通方式',
   storageRecovered: '本地数据已恢复',
+  mergeClean: '离线改动已合并，无冲突',
+  mergeConflictsPending: '合并完成，但有冲突保留两版，待确认',
+  mergeFailedRetry: '合并失败，重试后仍未成功，已保留上一份可读结果',
+  mergeSnapshotSaved: '离线快照已保存',
+  mergeSnapshotImported: '同伴快照已导入',
+  mergePendingBlocked: '确认前该内容不进入预算和分享预览',
+  mergeResolved: '冲突已确认并生效',
+  mergeNoSnapshot: '请先保存本地快照并导入同伴快照',
 };
-

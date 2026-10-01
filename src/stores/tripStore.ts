@@ -4,6 +4,7 @@ import type { Trip } from '../models/trip';
 import { tripApi } from '../api/tripApi';
 import { messages } from '../constants/messages';
 import { toast } from '../utils/message';
+import { stamp } from '../utils/author';
 
 export const useTripStore = defineStore('trip', {
   state: () => ({ trips: tripApi.list() as Trip[], statusFilter: 'all' as TripStatus | 'all' }),
@@ -12,7 +13,7 @@ export const useTripStore = defineStore('trip', {
   },
   actions: {
     createTrip(title = '杭州周末慢旅行') {
-      const trip: Trip = {
+      const trip: Trip = stamp({
         id: crypto.randomUUID(),
         title,
         destination: '杭州',
@@ -23,7 +24,7 @@ export const useTripStore = defineStore('trip', {
         members: ['我', '朋友'],
         status: TripStatus.PLANNING,
         created_at: new Date().toISOString(),
-      };
+      });
       this.trips.unshift(trip);
       tripApi.save(this.trips);
       toast.ok(messages.tripCreated);
@@ -33,6 +34,11 @@ export const useTripStore = defineStore('trip', {
       this.trips = this.trips.filter((trip) => trip.id !== id);
       tripApi.save(this.trips);
       toast.ok(messages.tripDeleted);
+    },
+    /** 合并结果回写（确认后落盘） */
+    replaceAll(trips: Trip[]) {
+      this.trips = trips;
+      tripApi.save(this.trips);
     },
   },
 });

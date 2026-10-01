@@ -25,7 +25,7 @@ const listEl = ref<HTMLElement>();
 const tripId = String(route.params.tripId);
 const dayIndex = Number(route.params.dayIndex || 1);
 const day = computed(() => dayPlanStore.ensureDay(tripId, dayIndex));
-const daySpots = computed(() => day.value.items.map((item) => spotStore.spots.find((spot) => spot.id === item.spot_id)).filter(Boolean) as any[]);
+const daySpots = computed(() => (day.value?.items ?? []).map((item) => spotStore.spots.find((spot) => spot.id === item.spot_id)).filter(Boolean) as any[]);
 onMounted(() => {
   if (listEl.value) {
     new Sortable(listEl.value, {
