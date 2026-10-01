@@ -4,6 +4,7 @@ import type { Trip } from '../models/trip';
 import { tripApi } from '../api/tripApi';
 import { messages } from '../constants/messages';
 import { toast } from '../utils/message';
+import { useSyncStore } from './syncStore';
 
 export const useTripStore = defineStore('trip', {
   state: () => ({ trips: tripApi.list() as Trip[], statusFilter: 'all' as TripStatus | 'all' }),
@@ -12,6 +13,8 @@ export const useTripStore = defineStore('trip', {
   },
   actions: {
     createTrip(title = '杭州周末慢旅行') {
+      const syncStore = useSyncStore();
+      const now = new Date().toISOString();
       const trip: Trip = {
         id: crypto.randomUUID(),
         title,
@@ -22,18 +25,31 @@ export const useTripStore = defineStore('trip', {
         currency: 'CNY',
         members: ['我', '朋友'],
         status: TripStatus.PLANNING,
-        created_at: new Date().toISOString(),
+        created_at: now,
+        updated_by: syncStore.profile.author,
+        updated_at: now,
       };
       this.trips.unshift(trip);
-      tripApi.save(this.trips);
+      this.persist();
+      syncStore.ensureBase();
       toast.ok(messages.tripCreated);
       return trip.id;
     },
     removeTrip(id: string) {
       this.trips = this.trips.filter((trip) => trip.id !== id);
-      tripApi.save(this.trips);
+      this.persist();
       toast.ok(messages.tripDeleted);
+    },
+    /** 冲突确认选择"删除"时使用，不弹提示。 */
+    removeTripSilently(id: string) {
+      this.trips = this.trips.filter((trip) => trip.id !== id);
+    },
+    /** 合并提交时整体替换为合并结果。 */
+    replaceAll(trips: Trip[]) {
+      this.trips = trips;
+    },
+    persist() {
+      tripApi.save(this.trips);
     },
   },
 });
-

@@ -4,6 +4,7 @@
       <strong>TripWeaver</strong>
       <RouterLink to="/trips">我的旅行</RouterLink>
       <RouterLink to="/spots">景点探索</RouterLink>
+      <RouterLink to="/sync">离线合并</RouterLink>
       <RouterLink to="/share">分享预览</RouterLink>
       <el-select v-model="themeStore.theme" size="small" @change="themeStore.setTheme" style="width: 120px">
         <el-option label="清爽地图" value="fresh" />

@@ -11,5 +11,7 @@ export interface Trip {
   members: string[];
   status: TripStatus;
   created_at: string;
+  /** 离线协作合并字段：最后修改人与修改时间（老数据缺失时按 created_at 兜底）。 */
+  updated_by?: string;
+  updated_at?: string;
 }
-

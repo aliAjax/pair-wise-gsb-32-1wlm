@@ -6,5 +6,14 @@ export const messages = {
   emptySpots: '没有符合条件的景点。',
   budgetExceeded: '预算可能超支，请调整景点或交通方式',
   storageRecovered: '本地数据已恢复',
+  syncImported: '同伴的离线改动已合并',
+  syncRetrySucceeded: '合并重试成功',
+  syncFailedKeepLast: '合并失败，已保留上一份可读结果',
+  conflictResolved: '冲突已按选择处理',
+  conflictPending: '存在待确认的冲突，确认前不会进入预算和分享预览',
+  noConflicts: '所有改动都已确认',
+  snapshotExported: '同步快照已导出，可发给同行的人',
+  snapshotCopied: '快照已复制到剪贴板',
+  snapshotInvalid: '快照内容无法识别，请确认文件来自 TripWeaver',
+  demoPrepared: '已模拟同伴离线改动（同字段改了不同内容，会产生冲突）',
 };
-

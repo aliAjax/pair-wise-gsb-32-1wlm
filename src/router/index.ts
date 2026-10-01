@@ -4,6 +4,7 @@ import TripDetail from '../pages/TripDetail.vue';
 import Spots from '../pages/Spots.vue';
 import Planner from '../pages/Planner.vue';
 import Share from '../pages/Share.vue';
+import SyncCenter from '../pages/SyncCenter.vue';
 import { installGuards } from './guards';
 
 const router = createRouter({
@@ -15,8 +16,8 @@ const router = createRouter({
     { path: '/spots', component: Spots },
     { path: '/planner/:tripId/:dayIndex', component: Planner },
     { path: '/share', component: Share },
+    { path: '/sync', component: SyncCenter },
   ],
 });
 installGuards(router);
 export default router;
-
